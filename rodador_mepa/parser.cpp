@@ -34,18 +34,19 @@ std::vector<node> parser::parsefile(std::string filename){
 }
 
 node parser::parseline(std::string linha){
+	linha.append(" "); // <--- super gambiarra, colocando espaço no final pro algoritmo funcionar
 	int flag_label = 0; //se ja tiver setado como 1, ou é o comando ou é parametro
 	int flag_comando = 0; //se ja tiver setado, primeiro parametro foi armazenado
 	int flag_parametro = 0; //para indicar se o primeiro parametro ja existe
 	std::string::iterator itr;
 	std::string buffer;
-	node return_node;
+	node r_node;
 	if(linha == "") //retorna nó vazio se a linha for vazia
-		return return_node;
+		return r_node;
 	//itera toda a linha
 	for(itr = linha.begin() ; itr != linha.end() ; itr++){
 		//se caractere nao for espaço, armazena na palavra
-		if((*itr) != ' ')
+		if((*itr) != ' ' && (*itr) != ',')
 			buffer.push_back((*itr));
 		/*
 		 * se for espaço (final de palavra), verifica se é palavra chave.
@@ -56,6 +57,31 @@ node parser::parseline(std::string linha){
 		 */
 		else{
 			std::cout << "WORD = " << buffer << std::endl;
+			//buffer.clear();
+			//caso seja palavra chave
+			if(iskeyword(buffer) && !(buffer.empty())){
+				flag_comando = 1;
+				r_node.comando = buffer;
+				buffer.clear();
+			}
+			//caso nao seja palavra chave e comando nao tenha sido encontrado ainda
+			if(flag_comando == 0 && !(buffer.empty())){
+				flag_label = 1;
+				r_node.label = buffer;
+				buffer.clear();
+			}
+			//caso comando ja tenha sido armazenado, prox palavra tem que ser parametro
+			if(flag_comando == 1 && flag_parametro == 0 && !(buffer.empty())){
+				flag_parametro = 1;
+				r_node.parametro1 = buffer;
+				buffer.clear();
+			}
+			//caso primeiro parametro ja exista
+			if(flag_parametro == 1 && !(buffer.empty())){
+				r_node.parametro2 = buffer;
+				buffer.clear();
+			}
+			/*        ----------------------------       COMEÇO DO CODIGO ZUADO
 			if(iskeyword(buffer)){
 				flag_comando = 1;
 				return_node.comando = buffer;
@@ -83,10 +109,11 @@ node parser::parseline(std::string linha){
 					}
 				}
 			}
+			        --------------------------------------      FIM DO CODIGO ZUADO   */
 		}
 			
 	}
-	return return_node;
+	return r_node;
 }
 
 int parser::iskeyword(std::string word){
