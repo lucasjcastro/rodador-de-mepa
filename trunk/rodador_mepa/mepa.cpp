@@ -13,11 +13,11 @@ mepa::mepa(){
 
 
 void mepa::traducao(std::vector<node> comandos){   
-	while(1){
+	while(comandos[i].comando != "PARA"){
 		if(comandos[i].comando == "CRCT"){
 			crct(comandos[i]);
 		}else if(comandos[i].comando == "CRVL"){
-			//crvl(comandos[i]);
+			crvl(comandos[i]);
 		}else if(comandos[i].comando == "SOMA"){
 			soma();
 		}else if(comandos[i].comando == "SUBT"){
@@ -72,9 +72,10 @@ void mepa::traducao(std::vector<node> comandos){
 			crvi(comandos[i]);
 		}else if(comandos[i].comando == "ARMI"){
 			armi(comandos[i]);
-		}else if(comandos[i].comando == "PARA"){
-			para();
 		}
+		/*else if(comandos[i].comando == "PARA"){
+			break;
+		}*/
 	}
 };
 
@@ -86,23 +87,35 @@ void mepa::crct(node comando){
 };
 
 void mepa::crvl(node comando){
-	
+	s = s + 1;   
+	M[s] = M[comando.parametro1];
+	i = i + 1;
 }
 
 void mepa::soma(){
-	
+	M[s-1] = M[s-1] + M[s];
+	s = s-1;
+	i = i+1;
 }
 
 void mepa::subt(){
-	
+	M[s-1] = M[s-1] - M[s];
+	s = s-1;
+	i = i+1;
 }
 
 void mepa::mult(){
-	
+	M[s-1] = M[s-1] * M[s];
+	s = s-1;
+	i = i+1;
 }
 
 void mepa::divi(){
-	
+	if(M[s] == 0)
+		return;
+	M[s-1] = M[s-1]/M[s];     
+	s = s-1;
+	i = i+1;
 }
 
 void mepa::cmig(){
