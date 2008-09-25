@@ -1,0 +1,17 @@
+program exemplo1(input,output);
+var m,n,s: integer;
+begin
+   read(m,n);
+   { comentarios }
+   s:=0;
+   m:=23123f
+   n:=_dasd
+   (* comentarios *)
+   while m<=n do
+   begin
+      s:=s+m*m;
+      write(m,s);
+      m:=m+1;
+   end
+end
+/0
