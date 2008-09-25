@@ -109,7 +109,7 @@ node parser::parseline(std::string linha){
 					}
 				}
 			}
-			        --------------------------------------      FIM DO CODIGO ZUADO   */
+			        -------------------------------      FIM DO CODIGO ZUADO   */
 		}
 			
 	}
