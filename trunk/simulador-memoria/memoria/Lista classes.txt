@@ -1,0 +1,17 @@
+Classes 
+
+- paginas
+	classe definindo as características da página
+	
+- memorias
+	as listas de memória física e  virtual
+	
+- listas?
+ 
+- gerenciadorProcessos
+	cuidando da alocação das páginas
+	
+- gerenciadorMemoria
+	tradução de endereços lógico X físico (além de, exclusivamente no nosso caso, montar os programas)
+
+
