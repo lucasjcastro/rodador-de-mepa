@@ -1,0 +1,1 @@
+recebe um programa em mepa como entrada e mostra o que acontece com cada pilha na saida.
